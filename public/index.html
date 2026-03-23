@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elysian Events | Luxury Event Planning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              champagne: {
+                100: "#FDF9F3",
+                200: "#F7E7CE",
+                300: "#E6C7A3",
+                400: "#D4A574",
+                500: "#C49363",
+              },
+              dark: {
+                900: "#0B0B0B",
+                800: "#151515",
+                700: "#1F1F1F",
+              },
+            },
+            fontFamily: {
+              serif: ["Cormorant Garamond", "serif"],
+              sans: ["Montserrat", "sans-serif"],
+            },
+            animation: {
+              shimmer: "shimmer 2s linear infinite",
+              "fade-in-up": "fadeInUp 1s ease-out forwards",
+              "gold-pulse": "goldPulse 3s ease-in-out infinite",
+            },
+            keyframes: {
+              shimmer: {
+                "0%": { backgroundPosition: "-200% 0" },
+                "100%": { backgroundPosition: "200% 0" },
+              },
+              fadeInUp: {
+                "0%": { opacity: "0", transform: "translateY(30px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              goldPulse: {
+                "0%, 100%": { opacity: "0.4" },
+                "50%": { opacity: "0.8" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background-color: #0b0b0b;
+        color: #f7e7ce;
+        overflow-x: hidden;
+      }
+
+      .text-gradient {
+        background: linear-gradient(
+          135deg,
+          #f7e7ce 0%,
+          #e6c7a3 50%,
+          #d4a574 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gold-line {
+        background: linear-gradient(90deg, transparent, #e6c7a3, transparent);
+        height: 1px;
+      }
+
+      .shimmer-btn {
+        background: linear-gradient(
+          90deg,
+          #e6c7a3 0%,
+          #f7e7ce 25%,
+          #e6c7a3 50%,
+          #f7e7ce 75%,
+          #e6c7a3 100%
+        );
+        background-size: 200% auto;
+        transition: all 0.3s ease;
+      }
+
+      .shimmer-btn:hover {
+        background-position: right center;
+        box-shadow: 0 0 30px rgba(230, 199, 163, 0.4);
+      }
+
+      .glass-card {
+        background: rgba(21, 21, 21, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(230, 199, 163, 0.1);
+      }
+
+      .service-icon {
+        transition: all 0.4s ease;
+      }
+
+      .service-card:hover .service-icon {
+        filter: drop-shadow(0 0 10px rgba(230, 199, 163, 0.6));
+        transform: scale(1.1);
+      }
+
+      .portfolio-item {
+        overflow: hidden;
+      }
+
+      .portfolio-item img {
+        transition: transform 0.7s ease;
+      }
+
+      .portfolio-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .portfolio-overlay {
+        background: linear-gradient(
+          to top,
+          rgba(11, 11, 11, 0.9) 0%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .input-gold:focus {
+        border-color: #e6c7a3;
+        box-shadow: 0 0 0 1px #e6c7a3;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #e6c7a3;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .testimonial-card {
+        border: 1px solid rgba(230, 199, 163, 0.2);
+        transition: all 0.4s ease;
+      }
+
+      .testimonial-card:hover {
+        border-color: rgba(230, 199, 163, 0.5);
+        box-shadow: 0 10px 40px rgba(230, 199, 163, 0.1);
+      }
+
+      .gold-accent-line {
+        width: 60px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #e6c7a3, transparent);
+      }
+      .lux-input {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        padding: 14px 16px;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .lux-input:focus {
+        outline: none;
+        border-color: rgba(212, 175, 55, 0.6);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+      }
+
+      .floating-element {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center">
+            <span class="font-serif text-2xl tracking-widest text-champagne-200"
+              >DE ROYAL GLOBAL VENTURES</span
+            >
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-8">
+              <a
+                href="#about"
+                class="nav-link text-champagne-200 hover:text-white px-3 py-2 text-sm tracking-widest uppercase transition-colors"
+                >About</a
+              >
+              <a
+                href="#services"
+                class="nav-link text-champagne-200 hover:text-white px-3 py-2 text-sm tracking-widest uppercase transition-colors"
+                >Services</a
+              >
+              <a
+                href="#portfolio"
+                class="nav-link text-champagne-200 hover:text-white px-3 py-2 text-sm tracking-widest uppercase transition-colors"
+                >Portfolio</a
+              >
+              <a
+                href="#testimonials"
+                class="nav-link text-champagne-200 hover:text-white px-3 py-2 text-sm tracking-widest uppercase transition-colors"
+                >Stories</a
+              >
+              <a
+                href="#contact"
+                class="nav-link text-champagne-200 hover:text-white px-3 py-2 text-sm tracking-widest uppercase transition-colors"
+                >Contact</a
+              >
+            </div>
+          </div>
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-btn"
+              class="text-champagne-200 hover:text-white"
+            >
+              <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-dark-800 absolute w-full border-b border-champagne-300/20"
+      >
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a
+            href="#about"
+            class="block text-champagne-200 hover:text-white px-3 py-2 text-base tracking-widest uppercase"
+            >About</a
+          >
+          <a
+            href="#services"
+            class="block text-champagne-200 hover:text-white px-3 py-2 text-base tracking-widest uppercase"
+            >Services</a
+          >
+          <a
+            href="#portfolio"
+            class="block text-champagne-200 hover:text-white px-3 py-2 text-base tracking-widest uppercase"
+            >Portfolio</a
+          >
+          <a
+            href="#testimonials"
+            class="block text-champagne-200 hover:text-white px-3 py-2 text-base tracking-widest uppercase"
+            >Stories</a
+          >
+          <a
+            href="#contact"
+            class="block text-champagne-200 hover:text-white px-3 py-2 text-base tracking-widest uppercase"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative h-screen flex items-center justify-center overflow-hidden"
+    >
+      <!-- Background Image with Softer Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80"
+          alt="Luxury Event"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/40"
+        ></div>
+      </div>
+
+      <!-- Decorative Elements -->
+      <div
+        class="absolute top-1/4 left-10 w-px h-32 bg-gradient-to-b from-transparent via-champagne-300 to-transparent opacity-30 floating-element"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-10 w-px h-32 bg-gradient-to-b from-transparent via-champagne-300 to-transparent opacity-30 floating-element"
+        style="animation-delay: 3s"
+      ></div>
+
+      <!-- Content -->
+      <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <div class="mb-6 reveal">
+          <div class="gold-accent-line mx-auto mb-8"></div>
+          <p
+            class="text-champagne-300 tracking-[0.3em] text-sm uppercase mb-4 font-light"
+          >
+            Exclusive Event Design
+          </p>
+        </div>
+
+        <h1
+          class="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight reveal"
+          style="transition-delay: 0.2s"
+        >
+          Designing <span class="text-gradient italic">Timeless,</span><br />
+          Unforgettable Celebrations
+        </h1>
+
+        <p
+          class="text-champagne-200/80 text-lg md:text-xl tracking-wide mb-12 font-light max-w-2xl mx-auto reveal"
+          style="transition-delay: 0.4s"
+        >
+          Luxury Event Planning for Modern Women
+        </p>
+
+        <div class="reveal" style="transition-delay: 0.6s">
+          <button
+            class="shimmer-btn text-dark-900 px-10 py-4 text-sm tracking-[0.2em] uppercase font-semibold rounded-sm hover:scale-105 transition-transform duration-300"
+          >
+            Book Your Private Consultation
+          </button>
+        </div>
+
+        <div class="mt-16 reveal" style="transition-delay: 0.8s">
+          <div
+            class="w-px h-16 bg-gradient-to-b from-champagne-300 to-transparent mx-auto opacity-50"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+      >
+        <i data-lucide="chevron-down" class="w-6 h-6 text-champagne-300/50"></i>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 relative overflow-hidden bg-black">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <!-- Image -->
+          <div class="relative reveal">
+            <!-- Elegant Border Frame -->
+            <div
+              class="absolute -inset-6 border border-champagne-300/30 rounded-sm"
+            ></div>
+
+            <div class="relative overflow-hidden rounded-sm">
+              <img
+                src="https://res.cloudinary.com/deoqw88yb/image/upload/v1771508529/WhatsApp_Image_2026-02-19_at_2.38.55_PM_g3oody.jpg"
+                alt="Event Planner"
+                class="w-full h-[600px] object-cover transition-transform duration-700 hover:scale-105"
+              />
+
+              <!-- Softer Editorial Overlay -->
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"
+              ></div>
+            </div>
+
+            <!-- Experience Badge -->
+            <div
+              class="absolute -bottom-8 -right-8 bg-black/80 backdrop-blur-md border border-champagne-300/40 px-8 py-6 rounded-sm shadow-xl"
+            >
+              <p class="font-serif text-4xl text-champagne-200">5+</p>
+              <p
+                class="text-xs tracking-[0.2em] uppercase text-champagne-300/70 mt-2"
+              >
+                Years of Excellence
+              </p>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="lg:pl-12 reveal">
+            <div class="gold-accent-line mb-10"></div>
+
+            <h2
+              class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight"
+            >
+              Curating Moments of
+              <span class="italic text-champagne-300">Pure Magic</span>
+            </h2>
+
+            <p
+              class="text-champagne-200/70 text-lg leading-relaxed mb-6 font-light"
+            >
+              Welcome to DE ROYAL EVENTS — where refinement meets imagination. I
+              am Isabella Monroe, founder and creative director, devoted to
+              designing celebrations that feel intimate, intentional, and
+              unforgettable.
+            </p>
+
+            <p class="text-champagne-200/70 leading-relaxed mb-6 font-light">
+              With over a decade of experience in luxury event planning, I
+              create bespoke experiences for discerning women who value
+              elegance, precision, and artistry.
+            </p>
+
+            <p class="text-champagne-200/70 leading-relaxed mb-12 font-light">
+              From intimate soirées to grand destination weddings, every detail
+              is thoughtfully curated — from lighting and florals to the
+              smallest finishing touch — ensuring effortless sophistication.
+            </p>
+
+            <!-- Luxury Stats -->
+            <div class="flex items-center space-x-10">
+              <div class="text-center">
+                <p class="font-serif text-3xl text-champagne-200">500+</p>
+                <p
+                  class="text-xs tracking-[0.3em] uppercase text-champagne-300/60 mt-2"
+                >
+                  Events
+                </p>
+              </div>
+
+              <div class="w-px h-14 bg-champagne-300/20"></div>
+
+              <div class="text-center">
+                <p class="font-serif text-3xl text-champagne-200">15</p>
+                <p
+                  class="text-xs tracking-[0.3em] uppercase text-champagne-300/60 mt-2"
+                >
+                  Countries
+                </p>
+              </div>
+
+              <div class="w-px h-14 bg-champagne-300/20"></div>
+
+              <div class="text-center">
+                <p class="font-serif text-3xl text-champagne-200">100%</p>
+                <p
+                  class="text-xs tracking-[0.3em] uppercase text-champagne-300/60 mt-2"
+                >
+                  Satisfaction
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 bg-black relative overflow-hidden">
+      <!-- Soft Champagne Glow Background -->
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(247,231,206,0.08),_transparent_60%)]"
+      ></div>
+
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <!-- Section Header -->
+        <div class="text-center mb-24 reveal">
+          <div class="gold-accent-line mx-auto mb-10"></div>
+          <h2
+            class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6"
+          >
+            Bespoke Services
+          </h2>
+          <p class="text-champagne-200/60 tracking-[0.3em] uppercase text-xs">
+            Tailored Experiences for Every Occasion
+          </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <!-- Service Card -->
+          <div
+            class="group relative border border-champagne-300/20 p-10 text-center transition-all duration-500 hover:border-champagne-300/50 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-8 text-champagne-300 transition-all duration-500 group-hover:scale-110"
+            >
+              <i data-lucide="heart" class="w-full h-full stroke-1"></i>
+            </div>
+
+            <h3 class="font-serif text-2xl text-white mb-4">Weddings</h3>
+
+            <p class="text-champagne-200/60 text-sm leading-relaxed font-light">
+              From intimate ceremonies to grand celebrations, crafting timeless
+              wedding experiences filled with elegance and intention.
+            </p>
+
+            <div
+              class="mt-8 w-10 h-px bg-champagne-300/30 mx-auto transition-all duration-500 group-hover:w-20 group-hover:bg-champagne-300"
+            ></div>
+          </div>
+
+          <!-- Service Card -->
+          <div
+            class="group relative border border-champagne-300/20 p-10 text-center transition-all duration-500 hover:border-champagne-300/50 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-8 text-champagne-300 transition-all duration-500 group-hover:scale-110"
+            >
+              <i data-lucide="sparkles" class="w-full h-full stroke-1"></i>
+            </div>
+
+            <h3 class="font-serif text-2xl text-white mb-4">Private Soirées</h3>
+
+            <p class="text-champagne-200/60 text-sm leading-relaxed font-light">
+              Exclusive celebrations and milestone events designed with refined
+              detail and unforgettable ambiance.
+            </p>
+
+            <div
+              class="mt-8 w-10 h-px bg-champagne-300/30 mx-auto transition-all duration-500 group-hover:w-20 group-hover:bg-champagne-300"
+            ></div>
+          </div>
+
+          <!-- Service Card -->
+          <div
+            class="group relative border border-champagne-300/20 p-10 text-center transition-all duration-500 hover:border-champagne-300/50 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-8 text-champagne-300 transition-all duration-500 group-hover:scale-110"
+            >
+              <i data-lucide="briefcase" class="w-full h-full stroke-1"></i>
+            </div>
+
+            <h3 class="font-serif text-2xl text-white mb-4">
+              Corporate Events
+            </h3>
+
+            <p class="text-champagne-200/60 text-sm leading-relaxed font-light">
+              Elevated brand experiences including launches, executive retreats,
+              and luxury galas.
+            </p>
+
+            <div
+              class="mt-8 w-10 h-px bg-champagne-300/30 mx-auto transition-all duration-500 group-hover:w-20 group-hover:bg-champagne-300"
+            ></div>
+          </div>
+
+          <!-- Service Card -->
+          <div
+            class="group relative border border-champagne-300/20 p-10 text-center transition-all duration-500 hover:border-champagne-300/50 hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-8 text-champagne-300 transition-all duration-500 group-hover:scale-110"
+            >
+              <i data-lucide="plane" class="w-full h-full stroke-1"></i>
+            </div>
+
+            <h3 class="font-serif text-2xl text-white mb-4">Destination</h3>
+
+            <p class="text-champagne-200/60 text-sm leading-relaxed font-light">
+              Bespoke celebrations in breathtaking global locations — curated
+              with seamless precision.
+            </p>
+
+            <div
+              class="mt-8 w-10 h-px bg-champagne-300/30 mx-auto transition-all duration-500 group-hover:w-20 group-hover:bg-champagne-300"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-32 bg-dark-900 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-24 reveal">
+          <div class="gold-accent-line mx-auto mb-8"></div>
+          <h2
+            class="font-serif text-4xl md:text-5xl text-white mb-6 leading-tight"
+          >
+            A Portfolio of
+            <span class="text-gradient italic">Refined Celebrations</span>
+          </h2>
+          <p class="text-champagne-200/60 tracking-[0.3em] uppercase text-xs">
+            Curated. Elevated. Unforgettable.
+          </p>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Item 1 -->
+          <div class="relative group cursor-pointer reveal">
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80"
+                alt="Luxury Wedding"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Luxury Wedding
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                The Rose Garden Affair
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                Tuscany, Italy
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div
+            class="relative group cursor-pointer reveal"
+            style="transition-delay: 0.1s"
+          >
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="/public/images/E2.jpeg"
+                alt="Private Luxury Party"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Private Celebration
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                Midnight in Paris
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                Paris, France
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div
+            class="relative group cursor-pointer reveal"
+            style="transition-delay: 0.2s"
+          >
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="/public/images/e3.jpeg"
+                alt="Corporate Gala"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Corporate Gala
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                The Golden Soirée
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                New York, USA
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="relative group cursor-pointer reveal">
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="/public/images/e4.jpeg"
+                alt="Destination Wedding"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Destination Wedding
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                Coastal Dreams
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                Santorini, Greece
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div
+            class="relative group cursor-pointer reveal"
+            style="transition-delay: 0.1s"
+          >
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="/public/images/e5.jpeg"
+                alt="Winter Wedding"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Winter Wedding
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                Winter Opulence
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                Aspen, Colorado
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div
+            class="relative group cursor-pointer reveal"
+            style="transition-delay: 0.2s"
+          >
+            <div class="aspect-[4/5] overflow-hidden rounded-sm">
+              <img
+                src="/public/images/e6.jpeg"
+                alt="Luxury Birthday"
+                class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+            ></div>
+            <div
+              class="absolute bottom-0 p-8 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
+            >
+              <p
+                class="text-champagne-300 text-xs tracking-widest uppercase mb-2"
+              >
+                Milestone Celebration
+              </p>
+              <h3 class="font-serif text-2xl text-white mb-2">
+                The Golden Milestone
+              </h3>
+              <p class="text-champagne-200/70 text-sm font-light">
+                London, United Kingdom
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="text-center mt-20 reveal">
+          <button
+            class="relative overflow-hidden border border-champagne-300/40 text-champagne-200 px-10 py-4 text-xs tracking-[0.3em] uppercase rounded-sm group transition-all duration-500"
+          >
+            <span class="relative z-10">Explore Full Collection</span>
+            <span
+              class="absolute inset-0 bg-champagne-300/10 opacity-0 group-hover:opacity-100 transition duration-500"
+            ></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section
+      id="testimonials"
+      class="py-32 bg-dark-900 relative overflow-hidden"
+    >
+      <!-- Soft Gold Glow -->
+      <div class="absolute inset-0 opacity-10">
+        <div
+          class="absolute top-1/3 left-1/4 w-72 h-72 bg-champagne-300 rounded-full blur-[140px]"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-champagne-300 rounded-full blur-[140px]"
+        ></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-24 reveal">
+          <div class="gold-accent-line mx-auto mb-8"></div>
+          <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">
+            Words of <span class="text-gradient italic">Appreciation</span>
+          </h2>
+          <p class="text-champagne-200/60 tracking-[0.3em] uppercase text-xs">
+            Experiences Shared by Our Clients
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Testimonial Card -->
+          <div
+            class="glass-card p-10 rounded-sm reveal hover:-translate-y-2 transition-all duration-500"
+          >
+            <div class="text-champagne-300 mb-8">
+              <i data-lucide="quote" class="w-8 h-8 opacity-40"></i>
+            </div>
+            <p
+              class="text-champagne-100/90 font-serif text-lg italic leading-relaxed mb-8"
+            >
+              “From the very first conversation, Isabella understood our vision.
+              The result was beyond extraordinary — refined, romantic, and
+              flawlessly executed.”
+            </p>
+            <div class="border-l border-champagne-300/30 pl-4">
+              <p class="text-white font-medium tracking-wide">Alexandra Chen</p>
+              <p
+                class="text-champagne-300/60 text-xs tracking-[0.3em] uppercase mt-1"
+              >
+                New York
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="glass-card p-10 rounded-sm reveal hover:-translate-y-2 transition-all duration-500"
+            style="transition-delay: 0.1s"
+          >
+            <div class="text-champagne-300 mb-8">
+              <i data-lucide="quote" class="w-8 h-8 opacity-40"></i>
+            </div>
+            <p
+              class="text-champagne-100/90 font-serif text-lg italic leading-relaxed mb-8"
+            >
+              “Every element felt intentional and beautifully curated. Guests
+              are still speaking about the elegance months later.”
+            </p>
+            <div class="border-l border-champagne-300/30 pl-4">
+              <p class="text-white font-medium tracking-wide">
+                Victoria Sterling
+              </p>
+              <p
+                class="text-champagne-300/60 text-xs tracking-[0.3em] uppercase mt-1"
+              >
+                London
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="glass-card p-10 rounded-sm reveal hover:-translate-y-2 transition-all duration-500"
+            style="transition-delay: 0.2s"
+          >
+            <div class="text-champagne-300 mb-8">
+              <i data-lucide="quote" class="w-8 h-8 opacity-40"></i>
+            </div>
+            <p
+              class="text-champagne-100/90 font-serif text-lg italic leading-relaxed mb-8"
+            >
+              “Seamless, sophisticated, and effortlessly luxurious. Isabella
+              transforms moments into lasting memories.”
+            </p>
+            <div class="border-l border-champagne-300/30 pl-4">
+              <p class="text-white font-medium tracking-wide">Maria Gonzalez</p>
+              <p
+                class="text-champagne-300/60 text-xs tracking-[0.3em] uppercase mt-1"
+              >
+                Miami
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-dark-900 relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-20 reveal">
+          <div class="gold-accent-line mx-auto mb-8"></div>
+          <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">
+            Let’s Begin Something
+            <span class="text-gradient italic">Beautiful</span>
+          </h2>
+          <p class="text-champagne-200/60 tracking-[0.3em] uppercase text-xs">
+            Inquire About Your Celebration
+          </p>
+        </div>
+
+        <div class="glass-card p-10 md:p-14 rounded-sm reveal">
+          <form class="space-y-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <input type="text" placeholder="First Name" class="lux-input" />
+              <input type="text" placeholder="Last Name" class="lux-input" />
+            </div>
+
+            <input type="email" placeholder="Email Address" class="lux-input" />
+
+            <select class="lux-input">
+              <option>Select Event Type</option>
+              <option>Luxury Wedding</option>
+              <option>Private Celebration</option>
+              <option>Corporate Gala</option>
+              <option>Destination Event</option>
+            </select>
+
+            <textarea
+              rows="4"
+              placeholder="Tell us about your vision..."
+              class="lux-input"
+            ></textarea>
+
+            <div class="text-center pt-6">
+              <button
+                type="submit"
+                class="relative border border-champagne-300/40 text-champagne-200 px-12 py-4 text-xs tracking-[0.3em] uppercase rounded-sm group transition-all duration-500"
+              >
+                <span class="relative z-10">Submit Inquiry</span>
+                <span
+                  class="absolute inset-0 bg-champagne-300/10 opacity-0 group-hover:opacity-100 transition duration-500"
+                ></span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Contact Info -->
+          <div
+            class="mt-16 pt-10 border-t border-champagne-300/10 text-center space-y-6"
+          >
+            <p class="text-champagne-200/70 tracking-wide">
+              hello@elysianevents.com · +1 (234) 567-890
+            </p>
+
+            <div class="flex justify-center space-x-8">
+              <i
+                data-lucide="instagram"
+                class="w-5 h-5 text-champagne-300/50 hover:text-champagne-300 transition"
+              ></i>
+              <i
+                data-lucide="facebook"
+                class="w-5 h-5 text-champagne-300/50 hover:text-champagne-300 transition"
+              ></i>
+              <i
+                data-lucide="linkedin"
+                class="w-5 h-5 text-champagne-300/50 hover:text-champagne-300 transition"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-14 bg-dark-900 border-t border-champagne-300/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <h3
+          class="font-serif text-2xl tracking-[0.4em] text-champagne-200 mb-2"
+        >
+          ELYSIAN
+        </h3>
+        <p
+          class="text-champagne-300/50 text-xs tracking-[0.3em] uppercase mb-6"
+        >
+          Luxury Event Planning
+        </p>
+
+        <div class="w-24 h-px bg-champagne-300/30 mx-auto mb-6"></div>
+
+        <p class="text-champagne-300/40 text-xs tracking-wide">
+          © 2026 Elysian Events. Crafted with intention and elegance.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add(
+            "bg-dark-900/95",
+            "backdrop-blur-md",
+            "border-b",
+            "border-champagne-300/10",
+          );
+        } else {
+          navbar.classList.remove(
+            "bg-dark-900/95",
+            "backdrop-blur-md",
+            "border-b",
+            "border-champagne-300/10",
+          );
+        }
+      });
+
+      // Scroll Reveal Animation
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        },
+      );
+
+      revealElements.forEach((el) => revealObserver.observe(el));
+
+      // Smooth Scroll for Navigation Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+            // Close mobile menu if open
+            mobileMenu.classList.add("hidden");
+          }
+        });
+      });
+
+      // GSAP Animations for Hero
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Parallax effect for hero background
+      gsap.to(".hero-bg", {
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+        y: 200,
+        ease: "none",
+      });
+
+      // Form submission handling
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Show success message
+        const btn = e.target.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.textContent = "Message Sent Successfully";
+        btn.classList.add("bg-green-600");
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove("bg-green-600");
+          e.target.reset();
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
